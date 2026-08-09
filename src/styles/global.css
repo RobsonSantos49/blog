@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: Georgia, "Times New Roman", serif;
+  --color-brand-50: #f2f5fb;
+  --color-brand-100: #dfe6f5;
+  --color-brand-200: #b9c8e8;
+  --color-brand-300: #8ea6d9;
+  --color-brand-400: #5f7fc4;
+  --color-brand-500: #3e5da8;
+  --color-brand-600: #2f4886;
+  --color-brand-700: #263a6c;
+  --color-brand-800: #1f2f58;
+  --color-brand-900: #192647;
+  --color-gold-400: #d8b45f;
+  --color-gold-500: #c79a3a;
+  --color-gold-600: #a67d2a;
+}
+
+body {
+  @apply bg-white text-brand-900 antialiased;
+}
+
+.prose-espirita {
+  @apply max-w-none;
+}
+
+.prose-espirita h2 {
+  @apply mt-8 mb-3 font-serif text-2xl text-brand-800;
+}
+
+.prose-espirita p {
+  @apply mb-4 leading-relaxed text-brand-900/90;
+}
+
+.prose-espirita ul,
+.prose-espirita ol {
+  @apply mb-4 ml-6 list-disc space-y-1;
+}

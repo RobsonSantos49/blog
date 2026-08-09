@@ -1,0 +1,98 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const artigos = (await getCollection('artigos', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const obrasBasicas = (await getCollection('obras-basicas')).sort(
+  (a, b) => a.data.ordem - b.data.ordem
+);
+
+const obrasComplementaresDestaque = (await getCollection('obras-complementares'))
+  .filter((o) => o.id === 'nosso-lar' || o.id === 'obras-postumas' || o.id === 'estudando-a-mediunidade');
+---
+
+<Layout
+  title="Início"
+  fullTitle="Conhecendo o Espiritismo — Estudo da Doutrina Espírita e Obras de Allan Kardec"
+  description="Estude o Espiritismo do zero: as cinco obras básicas de Allan Kardec, artigos introdutórios e uma biblioteca de obras complementares em PDF para aprofundar o conhecimento."
+>
+  <section class="mb-14 text-center">
+    <h1 class="font-serif text-4xl text-brand-900 sm:text-5xl">Conhecendo o Espiritismo</h1>
+    <p class="mx-auto mt-4 max-w-2xl text-lg text-brand-700">
+      Um espaço de estudo sobre a Doutrina Espírita: seus princípios, as cinco obras básicas de
+      Allan Kardec e uma biblioteca de obras complementares em PDF.
+    </p>
+    <div class="mt-6 flex justify-center gap-4">
+      <a
+        href="/obras-basicas"
+        class="rounded-md bg-brand-700 px-5 py-2.5 text-white transition-colors hover:bg-brand-800"
+      >
+        Conhecer as obras básicas
+      </a>
+      <a
+        href="/blog"
+        class="rounded-md border border-brand-300 px-5 py-2.5 text-brand-800 transition-colors hover:bg-brand-50"
+      >
+        Ler o blog
+      </a>
+    </div>
+  </section>
+
+  <section class="mb-14">
+    <h2 class="mb-5 font-serif text-2xl text-brand-800">As cinco obras básicas</h2>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {obrasBasicas.map((obra) => (
+        <a
+          href={`/obras-basicas/${obra.id}`}
+          class="rounded-lg border border-brand-100 p-4 transition-shadow hover:shadow-md"
+        >
+          <span class="text-xs font-medium text-gold-600">{obra.data.ordem}ª obra · {obra.data.anoPublicacao}</span>
+          <h3 class="mt-1 font-serif text-lg text-brand-900">{obra.data.title}</h3>
+          <p class="mt-2 text-sm text-brand-700 line-clamp-3">{obra.data.resumo}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="mb-14">
+    <div class="mb-5 flex items-center justify-between">
+      <h2 class="font-serif text-2xl text-brand-800">Da biblioteca de obras complementares</h2>
+      <a href="/obras-complementares" class="text-sm text-brand-600 hover:text-gold-600">
+        Ver biblioteca completa →
+      </a>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-3">
+      {obrasComplementaresDestaque.map((obra) => (
+        <div class="rounded-lg border border-brand-100 p-4">
+          {obra.data.categoria && (
+            <span class="text-xs font-medium text-gold-600">{obra.data.categoria}</span>
+          )}
+          <h3 class="mt-1 font-serif text-lg text-brand-900">{obra.data.title}</h3>
+          <p class="mt-1 text-xs text-brand-500">{obra.data.autor}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <div class="mb-5 flex items-center justify-between">
+      <h2 class="font-serif text-2xl text-brand-800">Últimos artigos</h2>
+      <a href="/blog" class="text-sm text-brand-600 hover:text-gold-600">Ver todos →</a>
+    </div>
+    <div class="space-y-4">
+      {artigos.map((artigo) => (
+        <a
+          href={`/blog/${artigo.id}`}
+          class="block rounded-lg border border-brand-100 p-4 transition-shadow hover:shadow-md"
+        >
+          <h3 class="font-serif text-lg text-brand-900">{artigo.data.title}</h3>
+          <p class="mt-1 text-sm text-brand-700">{artigo.data.description}</p>
+        </a>
+      ))}
+      {artigos.length === 0 && <p class="text-brand-600">Nenhum artigo publicado ainda.</p>}
+    </div>
+  </section>
+</Layout>

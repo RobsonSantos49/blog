@@ -1,0 +1,35 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const obras = (await getCollection('obras-basicas')).sort((a, b) => a.data.ordem - b.data.ordem);
+---
+
+<Layout
+  title="Obras Básicas"
+  description="As cinco obras fundamentais da codificação espírita escritas por Allan Kardec."
+>
+  <h1 class="mb-2 font-serif text-3xl text-brand-900">Obras Básicas</h1>
+  <p class="mb-8 text-brand-700">
+    Os cinco livros escritos por Allan Kardec que formam a base da Doutrina Espírita, conhecidos
+    como <em>Pentateuco Espírita</em>.
+  </p>
+
+  <div class="space-y-5">
+    {obras.map((obra) => (
+      <a
+        href={`/obras-basicas/${obra.id}`}
+        class="block rounded-lg border border-brand-100 p-5 transition-shadow hover:shadow-md"
+      >
+        <span class="text-xs font-medium text-gold-600">
+          {obra.data.ordem}ª obra · {obra.data.anoPublicacao}
+        </span>
+        <h2 class="mt-1 font-serif text-xl text-brand-900">{obra.data.title}</h2>
+        {obra.data.tituloOriginal && (
+          <p class="text-xs text-brand-500 italic">{obra.data.tituloOriginal}</p>
+        )}
+        <p class="mt-2 text-brand-700">{obra.data.resumo}</p>
+      </a>
+    ))}
+  </div>
+</Layout>

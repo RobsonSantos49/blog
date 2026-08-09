@@ -1,0 +1,42 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const artigos = (await getCollection('artigos', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Layout title="Blog" description="Artigos sobre a Doutrina Espírita.">
+  <h1 class="mb-8 font-serif text-3xl text-brand-900">Blog</h1>
+
+  <div class="space-y-6">
+    {artigos.map((artigo) => (
+      <a
+        href={`/blog/${artigo.id}`}
+        class="block rounded-lg border border-brand-100 p-5 transition-shadow hover:shadow-md"
+      >
+        <time class="text-xs text-brand-500">
+          {artigo.data.pubDate.toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric',
+            timeZone: 'UTC',
+          })}
+        </time>
+        <h2 class="mt-1 font-serif text-xl text-brand-900">{artigo.data.title}</h2>
+        <p class="mt-2 text-brand-700">{artigo.data.description}</p>
+        {artigo.data.tags.length > 0 && (
+          <div class="mt-3 flex flex-wrap gap-2">
+            {artigo.data.tags.map((tag) => (
+              <span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-xs text-brand-700">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </a>
+    ))}
+    {artigos.length === 0 && <p class="text-brand-600">Nenhum artigo publicado ainda.</p>}
+  </div>
+</Layout>

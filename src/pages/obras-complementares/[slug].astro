@@ -1,0 +1,94 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const obras = await getCollection('obras-complementares');
+  return obras.map((obra) => ({
+    params: { slug: obra.id },
+    props: { obra },
+  }));
+}
+
+const { obra } = Astro.props;
+const { Content } = await render(obra);
+
+const todasObras = await getCollection('obras-complementares');
+
+const proximaDaSerie = obra.data.ordemSerie
+  ? todasObras.find(
+      (o) => o.data.serie === obra.data.serie && o.data.ordemSerie === obra.data.ordemSerie! + 1
+    )
+  : undefined;
+
+const relacionadas = todasObras
+  .filter((o) => o.id !== obra.id && o.data.categoria === obra.data.categoria)
+  .slice(0, 3);
+---
+
+<Layout title={obra.data.title} description={obra.data.resumo} type="article">
+  <article>
+    <a href="/obras-complementares" class="text-sm text-brand-600 hover:text-gold-600">
+      ← Voltar às obras complementares
+    </a>
+
+    <header class="mt-4 mb-8 border-b border-brand-100 pb-6">
+      <div class="flex flex-wrap gap-2">
+        {obra.data.categoria && (
+          <span class="text-xs font-medium text-gold-600">{obra.data.categoria}</span>
+        )}
+        {obra.data.serie && (
+          <span class="text-xs font-medium text-brand-500">
+            · {obra.data.serie} {obra.data.ordemSerie && `— ${obra.data.ordemSerie}º volume`}
+          </span>
+        )}
+      </div>
+      <h1 class="mt-1 font-serif text-3xl text-brand-900">{obra.data.title}</h1>
+      <p class="mt-3 text-sm text-brand-500">
+        {obra.data.autor}
+        {obra.data.anoPublicacao ? ` · ${obra.data.anoPublicacao}` : ''}
+      </p>
+      <a
+        href={`/obras-complementares/${encodeURIComponent(obra.data.arquivoPdf)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-5 inline-flex w-fit items-center gap-2 rounded-md bg-brand-700 px-4 py-2 text-sm text-white transition-colors hover:bg-brand-800"
+      >
+        Baixar PDF
+      </a>
+    </header>
+
+    <div class="prose-espirita">
+      <Content />
+    </div>
+
+    {proximaDaSerie && (
+      <footer class="mt-10 rounded-lg border border-brand-100 bg-brand-50 p-5">
+        <p class="text-xs font-medium text-gold-600">Continue a {obra.data.serie}</p>
+        <a
+          href={`/obras-complementares/${proximaDaSerie.id}`}
+          class="mt-1 block font-serif text-lg text-brand-900 hover:text-brand-700"
+        >
+          {proximaDaSerie.data.ordemSerie}º volume: {proximaDaSerie.data.title} →
+        </a>
+      </footer>
+    )}
+
+    {relacionadas.length > 0 && (
+      <section class="mt-10">
+        <h2 class="mb-4 font-serif text-xl text-brand-800">Leia também em {obra.data.categoria}</h2>
+        <div class="grid gap-4 sm:grid-cols-3">
+          {relacionadas.map((r) => (
+            <a
+              href={`/obras-complementares/${r.id}`}
+              class="rounded-lg border border-brand-100 p-4 transition-shadow hover:shadow-md"
+            >
+              <h3 class="font-serif text-base text-brand-900">{r.data.title}</h3>
+              <p class="mt-1 text-xs text-brand-500">{r.data.autor}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+  </article>
+</Layout>

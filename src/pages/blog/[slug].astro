@@ -1,0 +1,45 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const artigos = await getCollection('artigos', ({ data }) => !data.draft);
+  return artigos.map((artigo) => ({
+    params: { slug: artigo.id },
+    props: { artigo },
+  }));
+}
+
+const { artigo } = Astro.props;
+const { Content } = await render(artigo);
+---
+
+<Layout
+  title={artigo.data.title}
+  description={artigo.data.description}
+  type="article"
+  publishedDate={artigo.data.pubDate}
+  articleAuthor={artigo.data.autor}
+>
+  <article>
+    <a href="/blog" class="text-sm text-brand-600 hover:text-gold-600">← Voltar ao blog</a>
+
+    <header class="mt-4 mb-8 border-b border-brand-100 pb-6">
+      <time class="text-xs text-brand-500">
+        {artigo.data.pubDate.toLocaleDateString('pt-BR', {
+          day: '2-digit',
+          month: 'long',
+          year: 'numeric',
+          timeZone: 'UTC',
+        })}
+      </time>
+      <h1 class="mt-1 font-serif text-3xl text-brand-900">{artigo.data.title}</h1>
+      <p class="mt-2 text-brand-700">{artigo.data.description}</p>
+      <p class="mt-3 text-sm text-brand-500">Por {artigo.data.autor}</p>
+    </header>
+
+    <div class="prose-espirita">
+      <Content />
+    </div>
+  </article>
+</Layout>

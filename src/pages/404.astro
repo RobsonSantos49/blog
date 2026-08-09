@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Página não encontrada" description="A página que você procura não foi encontrada.">
+  <div class="flex flex-col items-center py-16 text-center">
+    <span class="font-serif text-6xl text-brand-300">404</span>
+    <h1 class="mt-4 font-serif text-2xl text-brand-900">Página não encontrada</h1>
+    <p class="mt-2 max-w-md text-brand-700">
+      O caminho que você buscou não existe ou foi movido. Que tal continuar o estudo por aqui?
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <a
+        href="/"
+        class="rounded-md bg-brand-700 px-5 py-2.5 text-white transition-colors hover:bg-brand-800"
+      >
+        Voltar ao início
+      </a>
+      <a
+        href="/obras-basicas"
+        class="rounded-md border border-brand-300 px-5 py-2.5 text-brand-800 transition-colors hover:bg-brand-50"
+      >
+        Ver obras básicas
+      </a>
+      <a
+        href="/obras-complementares"
+        class="rounded-md border border-brand-300 px-5 py-2.5 text-brand-800 transition-colors hover:bg-brand-50"
+      >
+        Ver obras complementares
+      </a>
+    </div>
+  </div>
+</Layout>

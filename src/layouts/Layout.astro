@@ -1,0 +1,125 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  type?: 'website' | 'article';
+  fullTitle?: string;
+  publishedDate?: Date;
+  articleAuthor?: string;
+}
+
+const {
+  title,
+  description = 'Conhecendo o Espiritismo — um espaço de estudo sobre a Doutrina Espírita, as obras básicas de Allan Kardec e obras complementares.',
+  type = 'website',
+  fullTitle,
+  publishedDate,
+  articleAuthor,
+} = Astro.props;
+
+const pageTitle = fullTitle ?? `${title} · Conhecendo o Espiritismo`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const jsonLd =
+  type === 'article'
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: title,
+        description,
+        url: canonicalURL.toString(),
+        ...(publishedDate ? { datePublished: publishedDate.toISOString() } : {}),
+        ...(articleAuthor ? { author: { '@type': 'Person', name: articleAuthor } } : {}),
+      }
+    : null;
+
+const navLinks = [
+  { href: '/', label: 'Início' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/obras-basicas', label: 'Obras Básicas' },
+  { href: '/obras-complementares', label: 'Obras Complementares' },
+  { href: '/sobre', label: 'Sobre' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Conhecendo o Espiritismo"
+      href="/rss.xml"
+    />
+    <title>{pageTitle}</title>
+
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content="Conhecendo o Espiritismo" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <header class="border-b border-brand-100 bg-brand-900 text-white">
+      <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4">
+        <a href="/" class="font-serif text-xl font-semibold tracking-wide">
+          Conhecendo o Espiritismo
+        </a>
+        <nav>
+          <ul class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            {navLinks.map((link) => {
+              const isActive =
+                link.href === '/' ? currentPath === '/' : currentPath.startsWith(link.href);
+              return (
+                <li>
+                  <a
+                    href={link.href}
+                    class={`transition-colors hover:text-gold-400 ${
+                      isActive ? 'text-gold-400 font-medium' : 'text-white/85'
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="mx-auto w-full max-w-5xl flex-1 px-4 py-10">
+      <slot />
+    </main>
+
+    <footer class="border-t border-brand-100 bg-brand-50">
+      <div class="mx-auto max-w-5xl px-4 py-8 text-sm text-brand-700">
+        <p>
+          Conhecendo o Espiritismo — estudo livre da Doutrina Espírita codificada por Allan
+          Kardec.
+        </p>
+        <p class="mt-1 text-brand-700/70">
+          Textos de domínio público reproduzidos com fins de estudo e divulgação.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

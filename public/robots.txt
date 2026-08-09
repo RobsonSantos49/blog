@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://conhecendo-o-espiritismo.exemplo.com/sitemap-index.xml

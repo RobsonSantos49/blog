@@ -1,0 +1,147 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const obras = (await getCollection('obras-complementares')).sort((a, b) =>
+  a.data.title.localeCompare(b.data.title, 'pt-BR')
+);
+
+const categorias = [...new Set(obras.map((o) => o.data.categoria).filter(Boolean))].sort((a, b) =>
+  a!.localeCompare(b!, 'pt-BR')
+);
+
+const trilhaAndreLuiz = obras
+  .filter((o) => o.data.serie === 'Série André Luiz')
+  .sort((a, b) => (a.data.ordemSerie ?? 0) - (b.data.ordemSerie ?? 0));
+---
+
+<Layout
+  title="Obras Complementares"
+  description="Biblioteca de obras complementares do Espiritismo, disponíveis em PDF para download."
+>
+  <h1 class="mb-2 font-serif text-3xl text-brand-900">Obras Complementares</h1>
+  <p class="mb-6 text-brand-700">
+    Biblioteca de textos espíritas complementares às obras básicas, disponíveis para leitura e
+    download em PDF.
+  </p>
+
+  {trilhaAndreLuiz.length > 0 && (
+    <section class="mb-10 rounded-lg border border-brand-100 bg-brand-50 p-5">
+      <h2 class="font-serif text-xl text-brand-800">Trilha de leitura: Série André Luiz</h2>
+      <p class="mt-1 mb-4 text-sm text-brand-700">
+        Psicografia de Francisco Cândido Xavier, na ordem narrativa recomendada.
+      </p>
+      <ol class="grid gap-x-6 gap-y-2 sm:grid-cols-2 lg:grid-cols-3">
+        {trilhaAndreLuiz.map((obra) => (
+          <li>
+            <a
+              href={`/obras-complementares/${obra.id}`}
+              class="flex items-baseline gap-2 text-sm text-brand-800 hover:text-gold-600"
+            >
+              <span class="text-xs font-medium text-brand-400">{obra.data.ordemSerie}.</span>
+              {obra.data.title}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+
+  {categorias.length > 0 && (
+    <div class="mb-8 flex flex-wrap gap-2" id="filtros-categoria">
+      <button
+        type="button"
+        data-categoria="todas"
+        class="filtro-btn rounded-full border border-brand-300 px-4 py-1.5 text-sm text-brand-800 transition-colors"
+      >
+        Todas
+      </button>
+      {categorias.map((categoria) => (
+        <button
+          type="button"
+          data-categoria={categoria}
+          class="filtro-btn rounded-full border border-brand-300 px-4 py-1.5 text-sm text-brand-800 transition-colors"
+        >
+          {categoria}
+        </button>
+      ))}
+    </div>
+  )}
+
+  <div class="grid gap-5 sm:grid-cols-2" id="lista-obras">
+    {obras.map((obra) => (
+      <div
+        class="obra-card flex flex-col rounded-lg border border-brand-100 p-5"
+        data-categoria={obra.data.categoria ?? ''}
+      >
+        {obra.data.categoria && (
+          <span class="text-xs font-medium text-gold-600">{obra.data.categoria}</span>
+        )}
+        <a href={`/obras-complementares/${obra.id}`} class="hover:text-brand-700">
+          <h2 class="mt-1 font-serif text-lg text-brand-900">{obra.data.title}</h2>
+        </a>
+        <p class="text-sm text-brand-500">
+          {obra.data.autor}
+          {obra.data.anoPublicacao ? ` · ${obra.data.anoPublicacao}` : ''}
+        </p>
+        <p class="mt-2 flex-1 text-sm text-brand-700">{obra.data.resumo}</p>
+        <div class="mt-4 flex flex-wrap gap-3">
+          <a
+            href={`/obras-complementares/${obra.id}`}
+            class="inline-flex w-fit items-center gap-2 rounded-md border border-brand-300 px-4 py-2 text-sm text-brand-800 transition-colors hover:bg-brand-50"
+          >
+            Saiba mais
+          </a>
+          <a
+            href={`/obras-complementares/${encodeURIComponent(obra.data.arquivoPdf)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex w-fit items-center gap-2 rounded-md bg-brand-700 px-4 py-2 text-sm text-white transition-colors hover:bg-brand-800"
+          >
+            Baixar PDF
+          </a>
+        </div>
+      </div>
+    ))}
+    {obras.length === 0 && <p class="text-brand-600">Nenhuma obra cadastrada ainda.</p>}
+  </div>
+
+  <p id="sem-resultados" class="hidden text-brand-600">
+    Nenhuma obra encontrada nessa categoria.
+  </p>
+</Layout>
+
+<style>
+  .filtro-btn[aria-pressed='true'] {
+    background-color: var(--color-brand-700);
+    border-color: var(--color-brand-700);
+    color: white;
+  }
+</style>
+
+<script>
+  const botoes = document.querySelectorAll<HTMLButtonElement>('.filtro-btn');
+  const cards = document.querySelectorAll<HTMLElement>('.obra-card');
+  const semResultados = document.getElementById('sem-resultados');
+
+  function aplicarFiltro(categoria: string) {
+    let visiveis = 0;
+    cards.forEach((card) => {
+      const mostrar = categoria === 'todas' || card.dataset.categoria === categoria;
+      card.classList.toggle('hidden', !mostrar);
+      if (mostrar) visiveis += 1;
+    });
+    semResultados?.classList.toggle('hidden', visiveis !== 0);
+  }
+
+  botoes.forEach((botao) => {
+    botao.addEventListener('click', () => {
+      botoes.forEach((b) => b.setAttribute('aria-pressed', 'false'));
+      botao.setAttribute('aria-pressed', 'true');
+      aplicarFiltro(botao.dataset.categoria ?? 'todas');
+    });
+  });
+
+  const botaoTodas = document.querySelector<HTMLButtonElement>('[data-categoria="todas"]');
+  botaoTodas?.setAttribute('aria-pressed', 'true');
+</script>
