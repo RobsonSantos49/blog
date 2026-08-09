@@ -23,6 +23,7 @@ const obrasBasicas = defineCollection({
     anoPublicacao: z.number(),
     ordem: z.number(),
     resumo: z.string(),
+    arquivoPdf: z.string().optional(),
   }),
 });
 

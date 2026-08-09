@@ -5,6 +5,7 @@ autor: "Allan Kardec"
 anoPublicacao: 1868
 ordem: 5
 resumo: "Última obra da codificação, examina a origem do universo, dos milagres e das predições sob a ótica espírita, buscando conciliar ciência, religião e razão."
+arquivoPdf: "a-genese.pdf"
 ---
 
 ## Sobre a obra

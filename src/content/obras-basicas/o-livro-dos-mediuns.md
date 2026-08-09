@@ -5,6 +5,7 @@ autor: "Allan Kardec"
 anoPublicacao: 1861
 ordem: 2
 resumo: "Guia prático dos médiuns e dos evocadores, aprofunda os fenômenos de mediunidade e orienta a realização de sessões espíritas sérias e instrutivas."
+arquivoPdf: "o-livro-dos-mediuns.pdf"
 ---
 
 ## Sobre a obra

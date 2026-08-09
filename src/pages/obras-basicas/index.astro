@@ -17,19 +17,28 @@ const obras = (await getCollection('obras-basicas')).sort((a, b) => a.data.ordem
 
   <div class="space-y-5">
     {obras.map((obra) => (
-      <a
-        href={`/obras-basicas/${obra.id}`}
-        class="block rounded-lg border border-brand-100 p-5 transition-shadow hover:shadow-md"
-      >
-        <span class="text-xs font-medium text-gold-600">
-          {obra.data.ordem}ª obra · {obra.data.anoPublicacao}
-        </span>
-        <h2 class="mt-1 font-serif text-xl text-brand-900">{obra.data.title}</h2>
-        {obra.data.tituloOriginal && (
-          <p class="text-xs text-brand-500 italic">{obra.data.tituloOriginal}</p>
+      <div class="rounded-lg border border-brand-100 p-5 transition-shadow hover:shadow-md">
+        <a href={`/obras-basicas/${obra.id}`} class="block">
+          <span class="text-xs font-medium text-gold-600">
+            {obra.data.ordem}ª obra · {obra.data.anoPublicacao}
+          </span>
+          <h2 class="mt-1 font-serif text-xl text-brand-900">{obra.data.title}</h2>
+          {obra.data.tituloOriginal && (
+            <p class="text-xs text-brand-500 italic">{obra.data.tituloOriginal}</p>
+          )}
+          <p class="mt-2 text-brand-700">{obra.data.resumo}</p>
+        </a>
+        {obra.data.arquivoPdf && (
+          <a
+            href={`/obras-basicas/${encodeURIComponent(obra.data.arquivoPdf)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-4 inline-flex w-fit items-center gap-2 rounded-md border border-brand-300 px-4 py-2 text-sm text-brand-800 transition-colors hover:bg-brand-50"
+          >
+            Baixar PDF
+          </a>
         )}
-        <p class="mt-2 text-brand-700">{obra.data.resumo}</p>
-      </a>
+      </div>
     ))}
   </div>
 </Layout>
