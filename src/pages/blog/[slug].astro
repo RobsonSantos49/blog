@@ -46,6 +46,7 @@ const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 
     <section class="mt-10 border-t border-brand-100 pt-8">
       <h2 class="mb-4 font-serif text-xl text-brand-800">Comentários</h2>
+      <p class="mb-3 text-sm text-brand-500">Deixe seu comentário abaixo.</p>
       <div
         id="cusdis_thread"
         data-host="https://cusdis.com"
@@ -56,7 +57,8 @@ const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
         data-theme="light"
       >
       </div>
-      <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+      <script defer src="/cusdis-locale-pt-br.js"></script>
+      <script defer src="https://cusdis.com/js/cusdis.es.js"></script>
     </section>
   </article>
 </Layout>
