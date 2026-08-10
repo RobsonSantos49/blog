@@ -12,6 +12,8 @@ export async function getStaticPaths() {
 
 const { artigo } = Astro.props;
 const { Content } = await render(artigo);
+
+const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
 <Layout
@@ -41,5 +43,20 @@ const { Content } = await render(artigo);
     <div class="prose-espirita">
       <Content />
     </div>
+
+    <section class="mt-10 border-t border-brand-100 pt-8">
+      <h2 class="mb-4 font-serif text-xl text-brand-800">Comentários</h2>
+      <div
+        id="cusdis_thread"
+        data-host="https://cusdis.com"
+        data-app-id="f412edef-fada-4ca8-9db9-c781aa9baac9"
+        data-page-id={artigo.id}
+        data-page-url={pageUrl}
+        data-page-title={artigo.data.title}
+        data-theme="light"
+      >
+      </div>
+      <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+    </section>
   </article>
 </Layout>

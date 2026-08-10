@@ -7,7 +7,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://conhecendo-o-espiritismo.exemplo.com',
+  site: 'https://blog.santosrobsonmaciel.workers.dev',
 
   vite: {
     plugins: [tailwindcss()]
