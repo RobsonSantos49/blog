@@ -6,7 +6,7 @@ window.CUSDIS_LOCALE = {
   // comment
   email: 'Email (opcional)',
   nickname: 'Nome',
-  reply_placeholder: 'Escreva sua resposta...',
+  reply_placeholder: 'Escreva seu comentário abaixo...',
   reply_btn: 'Responder',
   sending: 'Enviando...',
 
