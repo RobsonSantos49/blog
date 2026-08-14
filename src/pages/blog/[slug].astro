@@ -14,6 +14,16 @@ const { artigo } = Astro.props;
 const { Content } = await render(artigo);
 
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
+
+const todosArtigos = (await getCollection('artigos', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
+);
+const indiceAtual = todosArtigos.findIndex((a) => a.id === artigo.id);
+const artigoAnterior = indiceAtual > 0 ? todosArtigos[indiceAtual - 1] : undefined;
+const proximoArtigo =
+  indiceAtual >= 0 && indiceAtual < todosArtigos.length - 1
+    ? todosArtigos[indiceAtual + 1]
+    : undefined;
 ---
 
 <Layout
@@ -81,6 +91,29 @@ const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
           ))}
         </div>
       </section>
+    )}
+
+    {(artigoAnterior || proximoArtigo) && (
+      <nav class="mt-10 grid gap-4 border-t border-brand-100 pt-8 sm:grid-cols-2" aria-label="Navegação entre artigos">
+        {artigoAnterior && (
+          <a
+            href={`/blog/${artigoAnterior.id}`}
+            class="rounded-lg border border-brand-100 p-4 transition-shadow hover:shadow-md"
+          >
+            <span class="text-xs font-medium text-gold-600">← Artigo anterior</span>
+            <h3 class="mt-1 font-serif text-base text-brand-900">{artigoAnterior.data.title}</h3>
+          </a>
+        )}
+        {proximoArtigo && (
+          <a
+            href={`/blog/${proximoArtigo.id}`}
+            class="rounded-lg border border-brand-100 p-4 text-right transition-shadow hover:shadow-md sm:col-start-2"
+          >
+            <span class="text-xs font-medium text-gold-600">Próximo artigo →</span>
+            <h3 class="mt-1 font-serif text-base text-brand-900">{proximoArtigo.data.title}</h3>
+          </a>
+        )}
+      </nav>
     )}
 
     <section class="mt-10 border-t border-brand-100 pt-8">
