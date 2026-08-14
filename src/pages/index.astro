@@ -104,10 +104,21 @@ const obrasComplementaresDestaque = (await getCollection('obras-complementares')
       {artigos.map((artigo) => (
         <a
           href={`/blog/${artigo.id}`}
-          class="block rounded-lg border border-brand-100 p-4 transition-shadow hover:shadow-md"
+          class="flex items-center gap-4 rounded-lg border border-brand-100 p-4 transition-shadow hover:shadow-md"
         >
-          <h3 class="font-serif text-lg text-brand-900">{artigo.data.title}</h3>
-          <p class="mt-1 text-sm text-brand-700">{artigo.data.description}</p>
+          {artigo.data.coverImage && (
+            <img
+              src={artigo.data.coverImage}
+              alt=""
+              class="h-16 w-16 shrink-0 rounded-md object-cover"
+              width="64"
+              height="64"
+            />
+          )}
+          <div>
+            <h3 class="font-serif text-lg text-brand-900">{artigo.data.title}</h3>
+            <p class="mt-1 text-sm text-brand-700">{artigo.data.description}</p>
+          </div>
         </a>
       ))}
       {artigos.length === 0 && <p class="text-brand-600">Nenhum artigo publicado ainda.</p>}

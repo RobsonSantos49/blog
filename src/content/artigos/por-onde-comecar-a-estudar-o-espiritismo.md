@@ -5,6 +5,8 @@ pubDate: 2026-08-08
 updatedDate: 2026-08-09
 autor: "Equipe Conhecendo o Espiritismo"
 tags: ["guia de estudo", "iniciantes"]
+coverImage: "/blog/por-onde-comecar-a-estudar-o-espiritismo.jpg"
+coverImageCredit: "Foto de Chris Lawton na Unsplash"
 faq:
   - pergunta: 'Preciso ler as obras na ordem exata?'
     resposta: 'Não é obrigatório, mas ajuda — cada obra básica pressupõe conceitos da anterior.'

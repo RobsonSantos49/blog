@@ -24,9 +24,28 @@ const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
   articleAuthor={artigo.data.autor}
   breadcrumbs={[{ label: 'Blog', href: '/blog' }, { label: artigo.data.title }]}
   faq={artigo.data.faq}
+  image={artigo.data.coverImage}
 >
   <article>
     <a href="/blog" class="text-sm text-brand-600 hover:text-gold-600">← Voltar ao blog</a>
+
+    {artigo.data.coverImage && (
+      <figure class="mt-4">
+        <img
+          src={artigo.data.coverImage}
+          alt={artigo.data.title}
+          class="w-full rounded-lg object-cover"
+          style="max-height: 360px;"
+          width="1200"
+          height="800"
+        />
+        {artigo.data.coverImageCredit && (
+          <figcaption class="mt-1 text-right text-xs text-brand-400">
+            {artigo.data.coverImageCredit}
+          </figcaption>
+        )}
+      </figure>
+    )}
 
     <header class="mt-4 mb-8 border-b border-brand-100 pb-6">
       <time class="text-xs text-brand-500">

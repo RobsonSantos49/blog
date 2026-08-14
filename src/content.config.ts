@@ -11,6 +11,8 @@ const artigos = defineCollection({
     autor: z.string().default('Equipe Conhecendo o Espiritismo'),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
+    coverImage: z.string().optional(),
+    coverImageCredit: z.string().optional(),
     faq: z
       .array(
         z.object({

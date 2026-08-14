@@ -5,6 +5,8 @@ pubDate: 2026-08-05
 updatedDate: 2026-08-09
 autor: "Equipe Conhecendo o Espiritismo"
 tags: ["mediunidade", "guia"]
+coverImage: "/blog/o-que-e-mediunidade.jpg"
+coverImageCredit: "Foto de Frames For Your Heart na Unsplash"
 faq:
   - pergunta: 'Qualquer pessoa pode ser médium?'
     resposta: 'Segundo a Doutrina, sim — em graus variados. Nem todos desenvolvem a faculdade de forma consciente ou útil, mas ela é considerada universal.'

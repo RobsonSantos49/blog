@@ -5,6 +5,8 @@ pubDate: 2026-08-03
 updatedDate: 2026-08-09
 autor: "Equipe Conhecendo o Espiritismo"
 tags: ["reencarnação", "doutrina"]
+coverImage: "/blog/reencarnacao-segundo-o-espiritismo.jpg"
+coverImageCredit: "Foto de Ray Hennessy na Unsplash"
 faq:
   - pergunta: 'Quantas vezes um espírito reencarna?'
     resposta: 'A Doutrina não estabelece um número fixo. O ritmo depende da evolução individual — alguns espíritos passariam por mais existências que outros.'

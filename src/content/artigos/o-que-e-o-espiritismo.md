@@ -5,6 +5,8 @@ pubDate: 2026-08-07
 updatedDate: 2026-08-09
 autor: "Equipe Conhecendo o Espiritismo"
 tags: ["introdução", "doutrina"]
+coverImage: "/blog/o-que-e-o-espiritismo.jpg"
+coverImageCredit: "Foto de Mindaugas Norvilas na Unsplash"
 faq:
   - pergunta: 'O Espiritismo acredita em Deus?'
     resposta: 'Sim. A existência de Deus como "causa primária de todas as coisas" é o ponto de partida de O Livro dos Espíritos.'

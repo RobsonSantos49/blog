@@ -18,27 +18,38 @@ const artigos = (await getCollection('artigos', ({ data }) => !data.draft)).sort
     {artigos.map((artigo) => (
       <a
         href={`/blog/${artigo.id}`}
-        class="block rounded-lg border border-brand-100 p-5 transition-shadow hover:shadow-md"
+        class="flex flex-col gap-4 rounded-lg border border-brand-100 p-5 transition-shadow hover:shadow-md sm:flex-row"
       >
-        <time class="text-xs text-brand-500">
-          {artigo.data.pubDate.toLocaleDateString('pt-BR', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric',
-            timeZone: 'UTC',
-          })}
-        </time>
-        <h2 class="mt-1 font-serif text-xl text-brand-900">{artigo.data.title}</h2>
-        <p class="mt-2 text-brand-700">{artigo.data.description}</p>
-        {artigo.data.tags.length > 0 && (
-          <div class="mt-3 flex flex-wrap gap-2">
-            {artigo.data.tags.map((tag) => (
-              <span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-xs text-brand-700">
-                {tag}
-              </span>
-            ))}
-          </div>
+        {artigo.data.coverImage && (
+          <img
+            src={artigo.data.coverImage}
+            alt=""
+            class="h-40 w-full rounded-md object-cover sm:h-auto sm:w-48"
+            width="400"
+            height="300"
+          />
         )}
+        <div class="flex-1">
+          <time class="text-xs text-brand-500">
+            {artigo.data.pubDate.toLocaleDateString('pt-BR', {
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric',
+              timeZone: 'UTC',
+            })}
+          </time>
+          <h2 class="mt-1 font-serif text-xl text-brand-900">{artigo.data.title}</h2>
+          <p class="mt-2 text-brand-700">{artigo.data.description}</p>
+          {artigo.data.tags.length > 0 && (
+            <div class="mt-3 flex flex-wrap gap-2">
+              {artigo.data.tags.map((tag) => (
+                <span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-xs text-brand-700">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
       </a>
     ))}
     {artigos.length === 0 && <p class="text-brand-600">Nenhum artigo publicado ainda.</p>}

@@ -21,6 +21,7 @@ interface Props {
   articleAuthor?: string;
   breadcrumbs?: Breadcrumb[];
   faq?: FaqItem[];
+  image?: string;
 }
 
 const {
@@ -32,10 +33,12 @@ const {
   articleAuthor,
   breadcrumbs,
   faq,
+  image,
 } = Astro.props;
 
 const pageTitle = fullTitle ?? `${title} · Conhecendo o Espiritismo`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = image ? new URL(image, Astro.site).toString() : undefined;
 
 const fullBreadcrumbs: Breadcrumb[] | undefined = breadcrumbs
   ? [{ label: 'Início', href: '/' }, ...breadcrumbs]
@@ -117,10 +120,12 @@ const currentPath = Astro.url.pathname;
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content="Conhecendo o Espiritismo" />
     <meta property="og:locale" content="pt_BR" />
+    {ogImageURL && <meta property="og:image" content={ogImageURL} />}
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content={ogImageURL ? 'summary_large_image' : 'summary'} />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
+    {ogImageURL && <meta name="twitter:image" content={ogImageURL} />}
 
     {articleJsonLd && (
       <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
