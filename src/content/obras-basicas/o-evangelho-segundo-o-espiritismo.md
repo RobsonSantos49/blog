@@ -6,6 +6,7 @@ anoPublicacao: 1864
 ordem: 3
 resumo: "Reinterpreta as máximas morais de Jesus à luz do Espiritismo, mostrando a ligação entre a moral cristã e a Doutrina Espírita."
 arquivoPdf: "o-evangelho-segundo-o-espiritismo.pdf"
+capaImagem: "/obras-basicas/capas/o-evangelho-segundo-o-espiritismo.jpg"
 ---
 
 ## Sobre a obra

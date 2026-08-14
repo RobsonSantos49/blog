@@ -23,32 +23,44 @@ const proximaObra = todasObras.find((o) => o.data.ordem === obra.data.ordem + 1)
   description={obra.data.resumo}
   type="article"
   breadcrumbs={[{ label: 'Obras Básicas', href: '/obras-basicas' }, { label: obra.data.title }]}
+  image={obra.data.capaImagem}
 >
   <article>
     <a href="/obras-basicas" class="text-sm text-brand-600 hover:text-gold-600">
       ← Voltar às obras básicas
     </a>
 
-    <header class="mt-4 mb-8 border-b border-brand-100 pb-6">
-      <span class="flex items-center gap-1.5 text-xs font-medium text-gold-600">
-        <IconLivro class="h-4 w-4" />
-        {obra.data.ordem}ª obra · {obra.data.anoPublicacao}
-      </span>
-      <h1 class="mt-1 font-serif text-3xl text-brand-900">{obra.data.title}</h1>
-      {obra.data.tituloOriginal && (
-        <p class="text-sm text-brand-500 italic">{obra.data.tituloOriginal}</p>
+    <header class="mt-4 mb-8 flex gap-5 border-b border-brand-100 pb-6">
+      {obra.data.capaImagem && (
+        <img
+          src={obra.data.capaImagem}
+          alt={`Capa de ${obra.data.title}`}
+          class="h-40 w-auto shrink-0 rounded shadow-sm sm:h-48"
+          width="130"
+          height="200"
+        />
       )}
-      <p class="mt-3 text-sm text-brand-500">Por {obra.data.autor}</p>
-      {obra.data.arquivoPdf && (
-        <a
-          href={`/obras-basicas/${encodeURIComponent(obra.data.arquivoPdf)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mt-5 inline-flex w-fit items-center gap-2 rounded-md bg-brand-700 px-4 py-2 text-sm text-white transition-colors hover:bg-brand-800"
-        >
-          Baixar PDF
-        </a>
-      )}
+      <div>
+        <span class="flex items-center gap-1.5 text-xs font-medium text-gold-600">
+          <IconLivro class="h-4 w-4" />
+          {obra.data.ordem}ª obra · {obra.data.anoPublicacao}
+        </span>
+        <h1 class="mt-1 font-serif text-3xl text-brand-900">{obra.data.title}</h1>
+        {obra.data.tituloOriginal && (
+          <p class="text-sm text-brand-500 italic">{obra.data.tituloOriginal}</p>
+        )}
+        <p class="mt-3 text-sm text-brand-500">Por {obra.data.autor}</p>
+        {obra.data.arquivoPdf && (
+          <a
+            href={`/obras-basicas/${encodeURIComponent(obra.data.arquivoPdf)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-5 inline-flex w-fit items-center gap-2 rounded-md bg-brand-700 px-4 py-2 text-sm text-white transition-colors hover:bg-brand-800"
+          >
+            Baixar PDF
+          </a>
+        )}
+      </div>
     </header>
 
     <div class="prose-espirita">

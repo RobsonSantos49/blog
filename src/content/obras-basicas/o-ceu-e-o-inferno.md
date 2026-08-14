@@ -6,6 +6,7 @@ anoPublicacao: 1865
 ordem: 4
 resumo: "Compara as doutrinas tradicionais sobre céu, inferno e purgatório com a explicação espírita da justiça divina, ilustrada por exemplos de comunicações de Espíritos."
 arquivoPdf: "o-ceu-e-o-inferno.pdf"
+capaImagem: "/obras-basicas/capas/o-ceu-e-o-inferno.jpg"
 ---
 
 ## Sobre a obra

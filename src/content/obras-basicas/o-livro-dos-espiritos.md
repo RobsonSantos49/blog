@@ -6,6 +6,7 @@ anoPublicacao: 1857
 ordem: 1
 resumo: "A obra fundadora do Espiritismo, organizada em forma de perguntas e respostas ditadas pelos Espíritos, estabelece os princípios da Doutrina: a existência de Deus, a natureza dos Espíritos, as leis morais e o destino do ser humano."
 arquivoPdf: "o-livro-dos-espiritos.pdf"
+capaImagem: "/obras-basicas/capas/o-livro-dos-espiritos.jpg"
 ---
 
 ## Sobre a obra
