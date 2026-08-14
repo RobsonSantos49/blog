@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
 import { categoriaIcons } from '../../lib/categoriaIcons';
+import { categoriaImagens } from '../../lib/categoriaImagens';
 
 export async function getStaticPaths() {
   const obras = await getCollection('obras-complementares');
@@ -27,6 +28,7 @@ const relacionadas = todasObras
   .slice(0, 3);
 
 const CategoriaIcon = obra.data.categoria ? categoriaIcons[obra.data.categoria] : null;
+const imagemCategoria = obra.data.categoria ? categoriaImagens[obra.data.categoria] : null;
 ---
 
 <Layout
@@ -37,11 +39,22 @@ const CategoriaIcon = obra.data.categoria ? categoriaIcons[obra.data.categoria] 
     { label: 'Obras Complementares', href: '/obras-complementares' },
     { label: obra.data.title },
   ]}
+  image={imagemCategoria}
 >
   <article>
     <a href="/obras-complementares" class="text-sm text-brand-600 hover:text-gold-600">
       ← Voltar às obras complementares
     </a>
+
+    {imagemCategoria && (
+      <img
+        src={imagemCategoria}
+        alt=""
+        class="mt-4 h-48 w-full rounded-lg object-cover"
+        width="1200"
+        height="300"
+      />
+    )}
 
     <header class="mt-4 mb-8 border-b border-brand-100 pb-6">
       <div class="flex flex-wrap gap-2">

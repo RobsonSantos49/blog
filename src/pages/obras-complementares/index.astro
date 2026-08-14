@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { categoriaIcons } from '../../lib/categoriaIcons';
+import { categoriaImagens } from '../../lib/categoriaImagens';
 
 const obras = (await getCollection('obras-complementares')).sort((a, b) =>
   a.data.title.localeCompare(b.data.title, 'pt-BR')
@@ -77,40 +78,54 @@ const trilhaAndreLuiz = obras
   <div class="grid gap-5 sm:grid-cols-2" id="lista-obras">
     {obras.map((obra) => {
       const CategoriaIcon = obra.data.categoria ? categoriaIcons[obra.data.categoria] : null;
+      const imagemCategoria = obra.data.categoria ? categoriaImagens[obra.data.categoria] : null;
       return (
       <div
-        class="obra-card flex flex-col rounded-lg border border-brand-100 p-5"
+        class="obra-card flex flex-col overflow-hidden rounded-lg border border-brand-100"
         data-categoria={obra.data.categoria ?? ''}
       >
-        {obra.data.categoria && (
-          <span class="flex items-center gap-1.5 text-xs font-medium text-gold-600">
-            {CategoriaIcon && <CategoriaIcon class="h-4 w-4" />}
-            {obra.data.categoria}
-          </span>
+        {imagemCategoria && (
+          <a href={`/obras-complementares/${obra.id}`}>
+            <img
+              src={imagemCategoria}
+              alt=""
+              class="h-28 w-full object-cover"
+              width="800"
+              height="200"
+            />
+          </a>
         )}
-        <a href={`/obras-complementares/${obra.id}`} class="hover:text-brand-700">
-          <h2 class="mt-1 font-serif text-lg text-brand-900">{obra.data.title}</h2>
-        </a>
-        <p class="text-sm text-brand-500">
-          {obra.data.autor}
-          {obra.data.anoPublicacao ? ` · ${obra.data.anoPublicacao}` : ''}
-        </p>
-        <p class="mt-2 flex-1 text-sm text-brand-700">{obra.data.resumo}</p>
-        <div class="mt-4 flex flex-wrap gap-3">
-          <a
-            href={`/obras-complementares/${obra.id}`}
-            class="inline-flex w-fit items-center gap-2 rounded-md border border-brand-300 px-4 py-2 text-sm text-brand-800 transition-colors hover:bg-brand-50"
-          >
-            Saiba mais
+        <div class="flex flex-1 flex-col p-5">
+          {obra.data.categoria && (
+            <span class="flex items-center gap-1.5 text-xs font-medium text-gold-600">
+              {CategoriaIcon && <CategoriaIcon class="h-4 w-4" />}
+              {obra.data.categoria}
+            </span>
+          )}
+          <a href={`/obras-complementares/${obra.id}`} class="hover:text-brand-700">
+            <h2 class="mt-1 font-serif text-lg text-brand-900">{obra.data.title}</h2>
           </a>
-          <a
-            href={`/obras-complementares/${encodeURIComponent(obra.data.arquivoPdf)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex w-fit items-center gap-2 rounded-md bg-brand-700 px-4 py-2 text-sm text-white transition-colors hover:bg-brand-800"
-          >
-            Baixar PDF
-          </a>
+          <p class="text-sm text-brand-500">
+            {obra.data.autor}
+            {obra.data.anoPublicacao ? ` · ${obra.data.anoPublicacao}` : ''}
+          </p>
+          <p class="mt-2 flex-1 text-sm text-brand-700">{obra.data.resumo}</p>
+          <div class="mt-4 flex flex-wrap gap-3">
+            <a
+              href={`/obras-complementares/${obra.id}`}
+              class="inline-flex w-fit items-center gap-2 rounded-md border border-brand-300 px-4 py-2 text-sm text-brand-800 transition-colors hover:bg-brand-50"
+            >
+              Saiba mais
+            </a>
+            <a
+              href={`/obras-complementares/${encodeURIComponent(obra.data.arquivoPdf)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex w-fit items-center gap-2 rounded-md bg-brand-700 px-4 py-2 text-sm text-white transition-colors hover:bg-brand-800"
+            >
+              Baixar PDF
+            </a>
+          </div>
         </div>
       </div>
       );
