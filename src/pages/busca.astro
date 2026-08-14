@@ -1,0 +1,120 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const artigos = await getCollection('artigos', ({ data }) => !data.draft);
+const obrasBasicas = await getCollection('obras-basicas');
+const obrasComplementares = await getCollection('obras-complementares');
+
+const indice = [
+  ...artigos.map((a) => ({
+    tipo: 'Artigo',
+    title: a.data.title,
+    description: a.data.description,
+    url: `/blog/${a.id}`,
+  })),
+  ...obrasBasicas.map((o) => ({
+    tipo: 'Obra Básica',
+    title: o.data.title,
+    description: o.data.resumo,
+    url: `/obras-basicas/${o.id}`,
+  })),
+  ...obrasComplementares.map((o) => ({
+    tipo: 'Obra Complementar',
+    title: o.data.title,
+    description: o.data.resumo,
+    url: `/obras-complementares/${o.id}`,
+  })),
+];
+---
+
+<Layout
+  title="Buscar"
+  description="Busque artigos do blog, obras básicas e obras complementares no Conhecendo o Espiritismo."
+  breadcrumbs={[{ label: 'Buscar' }]}
+>
+  <h1 class="mb-2 font-serif text-3xl text-brand-900">Buscar</h1>
+  <p class="mb-6 text-brand-700">
+    Pesquise entre os artigos do blog, as obras básicas e a biblioteca de obras complementares.
+  </p>
+
+  <input
+    type="search"
+    id="campo-busca"
+    placeholder="Digite um termo, ex: mediunidade, reencarnação, Kardec..."
+    class="w-full rounded-md border border-brand-300 px-4 py-2.5 text-brand-900 focus:border-brand-600 focus:outline-none"
+    autofocus
+  />
+
+  <p id="contador-resultados" class="mt-4 text-sm text-brand-500"></p>
+
+  <div id="resultados" class="mt-2 space-y-4"></div>
+
+  <script type="application/json" id="dados-busca" set:html={JSON.stringify(indice)} />
+</Layout>
+
+<script>
+  interface ItemBusca {
+    tipo: string;
+    title: string;
+    description: string;
+    url: string;
+  }
+
+  function normalizar(texto: string): string {
+    return texto
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
+  }
+
+  const dadosEl = document.getElementById('dados-busca');
+  const indice: ItemBusca[] = dadosEl ? JSON.parse(dadosEl.textContent || '[]') : [];
+  const indiceNormalizado = indice.map((item) => ({
+    ...item,
+    buscaTexto: normalizar(`${item.title} ${item.description}`),
+  }));
+
+  const campo = document.getElementById('campo-busca') as HTMLInputElement;
+  const resultados = document.getElementById('resultados')!;
+  const contador = document.getElementById('contador-resultados')!;
+
+  function renderizar(termo: string) {
+    if (!termo.trim()) {
+      resultados.innerHTML = '';
+      contador.textContent = '';
+      return;
+    }
+
+    const termoNormalizado = normalizar(termo);
+    const encontrados = indiceNormalizado.filter((item) =>
+      item.buscaTexto.includes(termoNormalizado)
+    );
+
+    contador.textContent =
+      encontrados.length === 0
+        ? 'Nenhum resultado encontrado.'
+        : `${encontrados.length} resultado${encontrados.length > 1 ? 's' : ''} encontrado${encontrados.length > 1 ? 's' : ''}.`;
+
+    resultados.innerHTML = encontrados
+      .map(
+        (item) => `
+          <a href="${item.url}" class="block rounded-lg border border-brand-100 p-4 transition-shadow hover:shadow-md">
+            <span class="text-xs font-medium text-gold-600">${item.tipo}</span>
+            <h2 class="mt-1 font-serif text-lg text-brand-900">${item.title}</h2>
+            <p class="mt-1 text-sm text-brand-700">${item.description}</p>
+          </a>
+        `
+      )
+      .join('');
+  }
+
+  campo.addEventListener('input', () => renderizar(campo.value));
+
+  const params = new URLSearchParams(window.location.search);
+  const termoInicial = params.get('q');
+  if (termoInicial) {
+    campo.value = termoInicial;
+    renderizar(termoInicial);
+  }
+</script>

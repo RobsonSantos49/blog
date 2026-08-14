@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
+import { categoriaIcons } from '../../lib/categoriaIcons';
 
 export async function getStaticPaths() {
   const obras = await getCollection('obras-complementares');
@@ -24,9 +25,19 @@ const proximaDaSerie = obra.data.ordemSerie
 const relacionadas = todasObras
   .filter((o) => o.id !== obra.id && o.data.categoria === obra.data.categoria)
   .slice(0, 3);
+
+const CategoriaIcon = obra.data.categoria ? categoriaIcons[obra.data.categoria] : null;
 ---
 
-<Layout title={obra.data.title} description={obra.data.resumo} type="article">
+<Layout
+  title={obra.data.title}
+  description={obra.data.resumo}
+  type="article"
+  breadcrumbs={[
+    { label: 'Obras Complementares', href: '/obras-complementares' },
+    { label: obra.data.title },
+  ]}
+>
   <article>
     <a href="/obras-complementares" class="text-sm text-brand-600 hover:text-gold-600">
       ← Voltar às obras complementares
@@ -35,7 +46,10 @@ const relacionadas = todasObras
     <header class="mt-4 mb-8 border-b border-brand-100 pb-6">
       <div class="flex flex-wrap gap-2">
         {obra.data.categoria && (
-          <span class="text-xs font-medium text-gold-600">{obra.data.categoria}</span>
+          <span class="flex items-center gap-1.5 text-xs font-medium text-gold-600">
+            {CategoriaIcon && <CategoriaIcon class="h-4 w-4" />}
+            {obra.data.categoria}
+          </span>
         )}
         {obra.data.serie && (
           <span class="text-xs font-medium text-brand-500">

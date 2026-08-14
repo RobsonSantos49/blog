@@ -5,6 +5,15 @@ pubDate: 2026-08-07
 updatedDate: 2026-08-09
 autor: "Equipe Conhecendo o Espiritismo"
 tags: ["introdução", "doutrina"]
+faq:
+  - pergunta: 'O Espiritismo acredita em Deus?'
+    resposta: 'Sim. A existência de Deus como "causa primária de todas as coisas" é o ponto de partida de O Livro dos Espíritos.'
+  - pergunta: 'Espiritismo é a mesma coisa que umbanda ou candomblé?'
+    resposta: 'Não. São doutrinas distintas, com origens, práticas e fundamentos teóricos diferentes, ainda que todas envolvam mediunidade de alguma forma.'
+  - pergunta: 'Espírita precisa ir a algum lugar específico, como uma igreja?'
+    resposta: 'Não é obrigatório. Muita gente estuda as obras básicas sozinha ou em pequenos grupos, sem vínculo formal a um centro espírita.'
+  - pergunta: 'O Espiritismo é compatível com a ciência?'
+    resposta: 'Kardec sempre defendeu que sim — a própria doutrina nasceu de um método investigativo. Ainda hoje, o Espiritismo se apresenta como aberto à revisão diante de novas evidências, embora isso seja tema de debate entre céticos e adeptos.'
 ---
 
 O Espiritismo é a doutrina fundada por Allan Kardec em meados do século XIX, a partir da sistematização de fenômenos mediúnicos observados e estudados com rigor científico. Kardec definiu o Espiritismo como uma **ciência** que trata da natureza, origem e destino dos Espíritos, e de sua relação com o mundo material; ao mesmo tempo, é uma **filosofia** de consequências morais que orienta o comportamento humano.
@@ -40,20 +49,6 @@ Nos onze anos seguintes, Kardec publicaria mais quatro obras fundamentais, compl
 ## As obras básicas
 
 A base doutrinária está reunida em cinco livros escritos por Kardec, conhecidos como *Pentateuco Espírita*: **O Livro dos Espíritos** (1857), **O Livro dos Médiuns** (1861), **O Evangelho Segundo o Espiritismo** (1864), **O Céu e o Inferno** (1865) e **A Gênese** (1868). Você pode conhecer cada uma delas em detalhe na seção [Obras Básicas](/obras-basicas), ou seguir um roteiro de leitura sugerido no artigo [Por Onde Começar a Estudar o Espiritismo](/blog/por-onde-comecar-a-estudar-o-espiritismo).
-
-## Perguntas frequentes
-
-**O Espiritismo acredita em Deus?**
-Sim. A existência de Deus como "causa primária de todas as coisas" é o ponto de partida de *O Livro dos Espíritos*.
-
-**Espiritismo é a mesma coisa que umbanda ou candomblé?**
-Não. São doutrinas distintas, com origens, práticas e fundamentos teóricos diferentes, ainda que todas envolvam mediunidade de alguma forma.
-
-**Espírita precisa ir a algum lugar específico, como uma igreja?**
-Não é obrigatório. Muita gente estuda as obras básicas sozinha ou em pequenos grupos, sem vínculo formal a um centro espírita.
-
-**O Espiritismo é compatível com a ciência?**
-Kardec sempre defendeu que sim — a própria doutrina nasceu de um método investigativo. Ainda hoje, o Espiritismo se apresenta como aberto à revisão diante de novas evidências, embora isso seja tema de debate entre céticos e adeptos.
 
 ## Continue estudando
 

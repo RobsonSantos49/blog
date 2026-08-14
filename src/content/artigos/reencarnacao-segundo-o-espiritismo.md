@@ -5,6 +5,15 @@ pubDate: 2026-08-03
 updatedDate: 2026-08-09
 autor: "Equipe Conhecendo o Espiritismo"
 tags: ["reencarnação", "doutrina"]
+faq:
+  - pergunta: 'Quantas vezes um espírito reencarna?'
+    resposta: 'A Doutrina não estabelece um número fixo. O ritmo depende da evolução individual — alguns espíritos passariam por mais existências que outros.'
+  - pergunta: 'É possível reencarnar em outro planeta?'
+    resposta: 'Sim, essa é uma ideia explícita na Doutrina, discutida na noção de "pluralidade dos mundos habitados", presente já em O Livro dos Espíritos.'
+  - pergunta: 'O Espiritismo acredita em reencarnação em animais?'
+    resposta: 'Não. Diferente de outras tradições orientais, o Espiritismo rejeita a reencarnação regressiva do espírito humano em forma animal.'
+  - pergunta: 'Reencarnação é a mesma coisa que carma, do hinduísmo/budismo?'
+    resposta: 'Há semelhanças conceituais (causa e efeito entre vidas), mas os sistemas doutrinários são distintos, com origens, cosmologias e práticas diferentes.'
 ---
 
 A reencarnação é um dos pilares que mais diferenciam o Espiritismo de outras correntes espiritualistas ocidentais. Este artigo resume o que a Doutrina ensina sobre o tema, os mal-entendidos mais comuns e onde encontrar mais profundidade.
@@ -34,20 +43,6 @@ A reencarnação não anula a liberdade de escolha. Pelo contrário: a Doutrina 
 ## Reencarnação não é punição
 
 Um mal-entendido comum é encarar a reencarnação como castigo. A Doutrina a apresenta de outra forma: como oportunidade. Cada nova existência é uma chance de reparar erros, desenvolver virtudes e avançar moralmente — um processo pedagógico, não punitivo, conduzido pela justiça de Deus. Esse ponto é aprofundado em [O Céu e o Inferno](/obras-basicas/o-ceu-e-o-inferno), que contrapõe a ideia espírita de justiça divina às noções tradicionais de castigo eterno.
-
-## Perguntas frequentes
-
-**Quantas vezes um espírito reencarna?**
-A Doutrina não estabelece um número fixo. O ritmo depende da evolução individual — alguns espíritos passariam por mais existências que outros.
-
-**É possível reencarnar em outro planeta?**
-Sim, essa é uma ideia explícita na Doutrina, discutida na noção de "pluralidade dos mundos habitados", presente já em *O Livro dos Espíritos*.
-
-**O Espiritismo acredita em reencarnação em animais?**
-Não. Diferente de outras tradições orientais, o Espiritismo rejeita a reencarnação regressiva do espírito humano em forma animal.
-
-**Reencarnação é a mesma coisa que carma, do hinduísmo/budismo?**
-Há semelhanças conceituais (causa e efeito entre vidas), mas os sistemas doutrinários são distintos, com origens, cosmologias e práticas diferentes.
 
 ## Para continuar o estudo
 

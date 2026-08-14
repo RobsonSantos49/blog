@@ -1,5 +1,16 @@
 ---
 import '../styles/global.css';
+import IconBusca from '../components/icons/IconBusca.astro';
+
+interface Breadcrumb {
+  label: string;
+  href?: string;
+}
+
+interface FaqItem {
+  pergunta: string;
+  resposta: string;
+}
 
 interface Props {
   title: string;
@@ -8,6 +19,8 @@ interface Props {
   fullTitle?: string;
   publishedDate?: Date;
   articleAuthor?: string;
+  breadcrumbs?: Breadcrumb[];
+  faq?: FaqItem[];
 }
 
 const {
@@ -17,12 +30,18 @@ const {
   fullTitle,
   publishedDate,
   articleAuthor,
+  breadcrumbs,
+  faq,
 } = Astro.props;
 
 const pageTitle = fullTitle ?? `${title} · Conhecendo o Espiritismo`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const jsonLd =
+const fullBreadcrumbs: Breadcrumb[] | undefined = breadcrumbs
+  ? [{ label: 'Início', href: '/' }, ...breadcrumbs]
+  : undefined;
+
+const articleJsonLd =
   type === 'article'
     ? {
         '@context': 'https://schema.org',
@@ -35,12 +54,42 @@ const jsonLd =
       }
     : null;
 
+const breadcrumbJsonLd = fullBreadcrumbs
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: fullBreadcrumbs.map((crumb, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: crumb.label,
+        ...(crumb.href ? { item: new URL(crumb.href, Astro.site).toString() } : {}),
+      })),
+    }
+  : null;
+
+const faqJsonLd =
+  faq && faq.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faq.map((item) => ({
+          '@type': 'Question',
+          name: item.pergunta,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.resposta,
+          },
+        })),
+      }
+    : null;
+
 const navLinks = [
   { href: '/', label: 'Início' },
   { href: '/blog', label: 'Blog' },
   { href: '/obras-basicas', label: 'Obras Básicas' },
   { href: '/obras-complementares', label: 'Obras Complementares' },
   { href: '/sobre', label: 'Sobre' },
+  { href: '/busca', label: 'Buscar' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -73,8 +122,14 @@ const currentPath = Astro.url.pathname;
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
 
-    {jsonLd && (
-      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {articleJsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
+    )}
+    {breadcrumbJsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
+    )}
+    {faqJsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
     )}
   </head>
   <body class="flex min-h-screen flex-col">
@@ -92,10 +147,11 @@ const currentPath = Astro.url.pathname;
                 <li>
                   <a
                     href={link.href}
-                    class={`transition-colors hover:text-gold-400 ${
+                    class={`flex items-center gap-1 transition-colors hover:text-gold-400 ${
                       isActive ? 'text-gold-400 font-medium' : 'text-white/85'
                     }`}
                   >
+                    {link.href === '/busca' && <IconBusca class="h-4 w-4" />}
                     {link.label}
                   </a>
                 </li>
@@ -105,6 +161,27 @@ const currentPath = Astro.url.pathname;
         </nav>
       </div>
     </header>
+
+    {fullBreadcrumbs && (
+      <nav aria-label="breadcrumb" class="border-b border-brand-100 bg-brand-50">
+        <ol class="mx-auto flex max-w-5xl flex-wrap items-center gap-1 px-4 py-2 text-xs text-brand-600">
+          {fullBreadcrumbs.map((crumb, index) => (
+            <li class="flex items-center gap-1">
+              {index > 0 && <span class="text-brand-300">/</span>}
+              {crumb.href && index < fullBreadcrumbs.length - 1 ? (
+                <a href={crumb.href} class="hover:text-gold-600">
+                  {crumb.label}
+                </a>
+              ) : (
+                <span class="text-brand-800" aria-current="page">
+                  {crumb.label}
+                </span>
+              )}
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )}
 
     <main class="mx-auto w-full max-w-5xl flex-1 px-4 py-10">
       <slot />

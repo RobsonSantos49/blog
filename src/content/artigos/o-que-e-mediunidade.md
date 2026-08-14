@@ -5,6 +5,15 @@ pubDate: 2026-08-05
 updatedDate: 2026-08-09
 autor: "Equipe Conhecendo o Espiritismo"
 tags: ["mediunidade", "guia"]
+faq:
+  - pergunta: 'Qualquer pessoa pode ser médium?'
+    resposta: 'Segundo a Doutrina, sim — em graus variados. Nem todos desenvolvem a faculdade de forma consciente ou útil, mas ela é considerada universal.'
+  - pergunta: 'Mediunidade é perigosa?'
+    resposta: 'A literatura espírita reconhece riscos (obsessão, desequilíbrio) quando exercida sem disciplina ou orientação. Por isso a recomendação de desenvolvê-la em grupo, com acompanhamento.'
+  - pergunta: 'É preciso "ter dom" para começar a estudar mediunidade?'
+    resposta: 'Não. O estudo teórico — a partir de O Livro dos Médiuns — é aberto a qualquer pessoa, independentemente de já perceber fenômenos mediúnicos em si mesma.'
+  - pergunta: 'Psicografia é a mesma coisa que escrita automática estudada pela psicologia?'
+    resposta: 'Há semelhanças fenomenológicas, mas as explicações causais divergem: a psicologia tende a buscar explicações no próprio inconsciente do sujeito, enquanto o Espiritismo atribui a autoria a uma consciência externa comunicante. O tema é debatido tanto por céticos quanto por estudiosos espíritas.'
 ---
 
 Poucos temas geram tanta curiosidade — e tanta confusão — quanto a mediunidade. Este artigo resume o que a codificação espírita diz sobre o assunto, os cuidados envolvidos e onde aprofundar cada ponto.
@@ -48,17 +57,3 @@ Depois de *O Livro dos Médiuns*, algumas obras da biblioteca complementar aprof
 - [Mecanismos da Mediunidade](/obras-complementares/mecanismos-da-mediunidade), da Série André Luiz — explicação técnica de como o fenômeno se processa.
 - [Nos Domínios da Mediunidade](/obras-complementares/nos-dominios-da-mediunidade), também da Série André Luiz — riscos e cuidados na prática mediúnica.
 - [Diálogo com as Sombras](/obras-complementares/dialogo-com-as-sombras), de Manoel Philomeno de Miranda — casos de obsessão e o processo de assistência espiritual.
-
-## Perguntas frequentes
-
-**Qualquer pessoa pode ser médium?**
-Segundo a Doutrina, sim — em graus variados. Nem todos desenvolvem a faculdade de forma consciente ou útil, mas ela é considerada universal.
-
-**Mediunidade é perigosa?**
-A literatura espírita reconhece riscos (obsessão, desequilíbrio) quando exercida sem disciplina ou orientação. Por isso a recomendação de desenvolvê-la em grupo, com acompanhamento.
-
-**É preciso "ter dom" para começar a estudar mediunidade?**
-Não. O estudo teórico — a partir de *O Livro dos Médiuns* — é aberto a qualquer pessoa, independentemente de já perceber fenômenos mediúnicos em si mesma.
-
-**Psicografia é a mesma coisa que escrita automática estudada pela psicologia?**
-Há semelhanças fenomenológicas, mas as explicações causais divergem: a psicologia tende a buscar explicações no próprio inconsciente do sujeito, enquanto o Espiritismo atribui a autoria a uma consciência externa comunicante. O tema é debatido tanto por céticos quanto por estudiosos espíritas.

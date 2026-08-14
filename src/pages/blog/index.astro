@@ -7,7 +7,11 @@ const artigos = (await getCollection('artigos', ({ data }) => !data.draft)).sort
 );
 ---
 
-<Layout title="Blog" description="Artigos sobre a Doutrina Espírita.">
+<Layout
+  title="Blog"
+  description="Artigos sobre a Doutrina Espírita."
+  breadcrumbs={[{ label: 'Blog' }]}
+>
   <h1 class="mb-8 font-serif text-3xl text-brand-900">Blog</h1>
 
   <div class="space-y-6">

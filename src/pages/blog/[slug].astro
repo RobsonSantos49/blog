@@ -22,6 +22,8 @@ const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
   type="article"
   publishedDate={artigo.data.pubDate}
   articleAuthor={artigo.data.autor}
+  breadcrumbs={[{ label: 'Blog', href: '/blog' }, { label: artigo.data.title }]}
+  faq={artigo.data.faq}
 >
   <article>
     <a href="/blog" class="text-sm text-brand-600 hover:text-gold-600">← Voltar ao blog</a>
@@ -42,6 +44,25 @@ const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
     <div class="prose-espirita">
       <Content />
     </div>
+
+    {artigo.data.faq.length > 0 && (
+      <section class="mt-10 border-t border-brand-100 pt-8">
+        <h2 class="mb-4 font-serif text-xl text-brand-800">Perguntas frequentes</h2>
+        <div class="space-y-3">
+          {artigo.data.faq.map((item) => (
+            <details class="group rounded-lg border border-brand-100 p-4">
+              <summary class="cursor-pointer list-none font-medium text-brand-900 marker:content-none">
+                <span class="flex items-center justify-between gap-2">
+                  {item.pergunta}
+                  <span class="text-brand-400 transition-transform group-open:rotate-45">+</span>
+                </span>
+              </summary>
+              <p class="mt-2 text-sm text-brand-700">{item.resposta}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+    )}
 
     <section class="mt-10 border-t border-brand-100 pt-8">
       <h2 class="mb-4 font-serif text-xl text-brand-800">Comentários</h2>
