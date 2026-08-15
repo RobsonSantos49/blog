@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://blog.santosrobsonmaciel.workers.dev/sitemap-index.xml
+Sitemap: https://conhecendoespiritismo.com.br/sitemap-index.xml
